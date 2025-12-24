@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Javascript Internal</title>
+</head>
+<body>
+
+<script>
+const HargaBaju = {
+kaos: 30000,
+kemeja: 50000,
+jaket: 75000,
+hoodie: 100000
+};
+
+let N = parseInt(prompt("Jumlah transaksi:"));
+let DataTransaksiPembelian =[];
+let TotalTransaksi =0;
+let TotalDiskon =0;
+let TotalPendapatan =0;
+
+for (let TransaksiPembelian = 1; TransaksiPembelian <= N; TransaksiPembelian++){
+console.log(`\n=== Transaksi ke-${TransaksiPembelian} ===`);
+let JenisBaju = prompt("Masukan jenis baju :").toLowerCase();
+let Jumlah = parseInt(prompt("Masukan jumlah baju:"));
+let SesiPembelian = prompt("Masukan sesi pembelian :").toLowerCase();
+let HargaSatuan = HargaBaju[JenisBaju];
+let TotalHarga = HargaSatuan * Jumlah;
+let diskon = 0;
+
+ 
+if (SesiPembelian === "pagi") {
+if (Jumlah <= 10) {
+diskon = 0;
+} else if (Jumlah <= 20) {
+diskon = (10 * HargaSatuan * 0.05) +((Jumlah - 10) * HargaSatuan * 0.10);
+} else {
+diskon = (10 * HargaSatuan * 0.05) +(10 * HargaSatuan * 0.12) +((Jumlah - 20) * HargaSatuan * 0.22);
+}
+} 
+else if (SesiPembelian === "malam") {
+if (Jumlah <= 10) {
+diskon = Jumlah * HargaSatuan * 0.05;
+} else if (Jumlah <= 20) {
+diskon =(10 * HargaSatuan * 0.10) +((Jumlah - 10) * HargaSatuan * 0.18);
+} else {
+diskon = (10 * HargaSatuan * 0.18) +(10 * HargaSatuan * 0.25) +((Jumlah - 20) * HargaSatuan * 0.35);
+}
+}
+let TotalBayar = TotalHarga - diskon;
+DataTransaksiPembelian.push({
+JenisBaju,
+Jumlah,
+SesiPembelian,
+TotalHarga,
+diskon,
+TotalBayar
+});
+TotalTransaksi++;
+TotalDiskon += diskon;
+TotalPendapatan += TotalBayar;
+console.log("Total Harga :", TotalHarga);
+console.log("Diskon :", diskon);
+console.log("Total Bayar :", TotalBayar);
+}
+
+
+console.log("Total Transaksi :", TotalTransaksi);
+console.log("Total Diskon :", TotalDiskon);
+console.log("Total Pendapatan :", TotalPendapatan);
+console.log("Rata-rata Pendapatan :", TotalPendapatan / TotalTransaksi);
+</script>
+
+</body>
+</html>
